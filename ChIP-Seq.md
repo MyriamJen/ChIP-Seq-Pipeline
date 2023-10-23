@@ -54,6 +54,11 @@ done
 for i in $(cat allnames.txt); do
 awk 'BEGIN {FS=OFS="\t"} {print $5}' $i'.sam' > $i'-out.txt' | sort -n $i'-out.txt' | uniq -c > $i'-hist.txt';
 done
+
+#in case you already deleted the sam files:
+for i in $(cat allnames.txt); do
+samtools view 5_Bamfiles/$i'.bam' | awk 'BEGIN {FS=OFS="\t"} {print $5}' | sort -n | uniq -c > $i'-hist.txt';
+done
 ```
 ```R
 #First read the histogram table and name the variable
